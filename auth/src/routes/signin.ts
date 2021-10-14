@@ -3,7 +3,8 @@ import { body } from 'express-validator';
 import { validateRequest } from '../middleware/validate-request';
 import { User } from '../models/user';
 import { BadRequestError } from '../errors/bad-request-error';
-import { PasswordManager } from '../services/password';
+import { PasswordManager } from '../services/password-manager';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -32,6 +33,21 @@ router.post(
     if (!passwordsMatch) {
       throw new BadRequestError('Invalid credentials');
     }
+
+    //Generate JWT
+    const userJwt = jwt.sign(
+      {
+        id: existingUser.id,
+        email: existingUser.email,
+      },
+      process.env.jwt_key!
+    );
+
+    req.session = {
+      jwt: userJwt,
+    };
+
+    res.status(200).send(existingUser);
   }
 );
 

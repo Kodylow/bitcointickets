@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PasswordManager } from '../services/password';
+import { PasswordManager } from '../services/password-manager';
 
 // An interface that describes the properties
 // that are requried to create a new User
