@@ -22,7 +22,6 @@ router.post(
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
-
     if (existingUser) {
       throw new BadRequestError('Email in use');
     }
@@ -38,11 +37,11 @@ router.post(
       },
       process.env.jwt_key!
     );
-
     //Store on session
     req.session = {
       jwt: userJWT,
     };
+
     res.status(201).send(user);
   }
 );
