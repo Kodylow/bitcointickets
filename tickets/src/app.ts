@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@lndevs/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes';
+import { indexTicketRouter } from './routes/index';
 import { updateTicketRouter } from './routes/update';
 
 const app = express();
